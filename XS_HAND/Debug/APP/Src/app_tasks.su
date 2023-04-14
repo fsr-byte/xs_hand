@@ -1,0 +1,5 @@
+../APP/Src/app_tasks.c:16:6:Sys_Init	8	static
+../APP/Src/app_tasks.c:27:6:StartDefaultTask	16	static
+../APP/Src/app_tasks.c:51:6:StartTask02	16	static
+../APP/Src/app_tasks.c:68:6:StartTask03	96	static
+../APP/Src/app_tasks.c:86:6:StartTask04	16	static
