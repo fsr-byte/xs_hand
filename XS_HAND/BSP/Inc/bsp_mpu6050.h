@@ -16,26 +16,30 @@
 // MPU6050 structure
 typedef struct
 {
+    int16_t Accel_X_RAW;   //X轴加速度计的原始数据
+    int16_t Accel_Y_RAW;   //Y轴加速度计的原始数据
+    int16_t Accel_Z_RAW;   //Z轴加速度计的原始数据
+    double Ax;             //X轴加速度值
+    double Ay;             //Y轴加速度值
+    double Az;             //Z轴加速度值
 
-    int16_t Accel_X_RAW;	//X轴加速度计的原始数据
-    int16_t Accel_Y_RAW;	//Y轴加速度计的原始数据
-    int16_t Accel_Z_RAW;	//Z轴加速度计的原始数据
-    double Ax;
-    double Ay;
-    double Az;
+    double Accel_X;		   //去除重力后的X轴加速度
+    double Accel_Y;		   //去除重力后的Y轴加速度
+    double Accel_Z;		   //去除重力后的Z轴加速度
 
-    int16_t Gyro_X_RAW;
-    int16_t Gyro_Y_RAW;
-    int16_t Gyro_Z_RAW;
-    double Gx;
-    double Gy;
-    double Gz;
+    int16_t Gyro_X_RAW;    //X轴陀螺仪的原始数据
+    int16_t Gyro_Y_RAW;    //Y轴陀螺仪的原始数据
+    int16_t Gyro_Z_RAW;    //Z轴陀螺仪的原始数据
+    double Gx;             //X轴角速度值
+    double Gy;             //Y轴角速度值
+    double Gz;             //Z轴角速度值
 
-    float Temperature;
+    float Temperature;     //温度值
 
-    double KalmanAngleX;
-    double KalmanAngleY;
+    double KalmanAngleX;   //卡尔曼滤波后的 X 轴角度值
+    double KalmanAngleY;   //卡尔曼滤波后的 Y 轴角度值
 } MPU6050_t;
+
 
 // Kalman structure
 typedef struct
@@ -59,3 +63,5 @@ void MPU6050_Read_Temp(I2C_HandleTypeDef *I2Cx, MPU6050_t *DataStruct);
 void MPU6050_Read_All(I2C_HandleTypeDef *I2Cx, MPU6050_t *DataStruct);
 
 double Kalman_getAngle(Kalman_t *Kalman, double newAngle, double newRate, double dt);
+
+void remove_gravity(MPU6050_t *DataStruct);

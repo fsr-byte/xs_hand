@@ -205,13 +205,30 @@ void MPU6050_Read_All(I2C_HandleTypeDef *I2Cx, MPU6050_t *DataStruct)
     if (fabs(DataStruct->KalmanAngleY) > 90)
         DataStruct->Gx = -DataStruct->Gx;
     DataStruct->KalmanAngleX = Kalman_getAngle(&KalmanX, roll, DataStruct->Gx, dt);
+    remove_gravity(DataStruct);
 }
 
+/**
+ * @brief 对传感器数据进行卡尔曼滤波计算，得到滤波后的角度值。
+ *
+ * @param Kalman 卡尔曼滤波器结构体
+ * @param newAngle 最新的角度值
+ * @param newRate 最新的角速度值
+ * @param dt 采样时间间隔
+ * @return double 返回卡尔曼滤波后的角度值
+ */
+/**
+Kalman_t 是一个自定义的结构体类型，表示卡尔曼滤波器的状态。
+Q_angle、Q_bias 和 R_measure 分别表示卡尔曼滤波器的过程噪声方差、
+偏差噪声方差和测量噪声方差。在函数中，P 表示卡尔曼滤波器的协方差矩阵。
+K 表示卡尔曼增益向量，y代表测量值与估计值之间的残差，也就是两者之间的差值。
+*/
 double Kalman_getAngle(Kalman_t *Kalman, double newAngle, double newRate, double dt)
 {
     double rate = newRate - Kalman->bias;
     Kalman->angle += dt * rate;
 
+    // 更新协方差矩阵 P
     Kalman->P[0][0] += dt * (dt * Kalman->P[1][1] - Kalman->P[0][1] - Kalman->P[1][0] + Kalman->Q_angle);
     Kalman->P[0][1] -= dt * Kalman->P[1][1];
     Kalman->P[1][0] -= dt * Kalman->P[1][1];
@@ -223,16 +240,58 @@ double Kalman_getAngle(Kalman_t *Kalman, double newAngle, double newRate, double
     K[1] = Kalman->P[1][0] / S;
 
     double y = newAngle - Kalman->angle;
+
+    // 更新估计值和偏差
     Kalman->angle += K[0] * y;
     Kalman->bias += K[1] * y;
 
     double P00_temp = Kalman->P[0][0];
     double P01_temp = Kalman->P[0][1];
 
+    // 更新协方差矩阵 P
     Kalman->P[0][0] -= K[0] * P00_temp;
     Kalman->P[0][1] -= K[0] * P01_temp;
     Kalman->P[1][0] -= K[1] * P00_temp;
     Kalman->P[1][1] -= K[1] * P01_temp;
 
+    // 返回估计值
     return Kalman->angle;
 };
+
+
+void remove_gravity(MPU6050_t *DataStruct)
+{
+    double norm;
+    double gx, gy, gz;
+    double roll, pitch;
+    double delta;
+
+    // 计算当前的重力加速度大小
+    norm = sqrt(DataStruct->Accel_X_RAW * DataStruct->Accel_X_RAW +
+                DataStruct->Accel_Y_RAW * DataStruct->Accel_Y_RAW +
+                DataStruct->Accel_Z_RAW * DataStruct->Accel_Z_RAW);
+
+    // 如果当前的重力加速度大小为0，则无法计算出姿态角
+    if (norm == 0.0)
+    {
+        return;
+    }
+
+    // 将加速度传感器的值转换为重力加速度分量
+    gx = DataStruct->Accel_X_RAW / norm;
+    gy = DataStruct->Accel_Y_RAW / norm;
+    gz = DataStruct->Accel_Z_RAW / norm;
+
+    // 计算当前的滚转角和俯仰角
+    roll = atan2(gy, gz);
+    pitch = atan(-gx / (gy * sin(roll) + gz * cos(roll)));
+
+    // 根据当前的滚转角和俯仰角计算出重力加速度分量
+    delta = DataStruct->Az * cos(roll) * cos(pitch) + DataStruct->Ay * sin(roll) * cos(pitch) - DataStruct->Ax * sin(pitch);
+
+    // 减去重力加速度分量，得到真实的加速度值
+    DataStruct->Accel_X = DataStruct->Accel_X_RAW - delta * sin(pitch);
+    DataStruct->Accel_Y = DataStruct->Accel_Y_RAW + delta * sin(roll) * cos(pitch);
+    DataStruct->Accel_Z = DataStruct->Accel_Z_RAW + delta * cos(roll) * cos(pitch);
+}
+
