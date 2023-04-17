@@ -4,10 +4,15 @@
  *  Created on: Apr 13, 2023
  *      Author: fsr
  */
-#include "app_log.h"
 #include "bsp_mpu6050.h"
-#include "freertos.h"
-#include "app_mpu6050.h"
+#include "bsp_usart.h"
+
+/**********为了匿名四轴上位机的协议定义的变量****************************/
+//cup为小端模式存储，也就是在存储的时候，低位被存在0字节，高位在1字节
+#define BYTE0(dwTemp)       (*(char *)(&dwTemp))	 //取出int型变量的低字节
+#define BYTE1(dwTemp)       (*((char *)(&dwTemp) + 1))	 //	取存储在此变量下一内存字节的内容，高字节
+#define BYTE2(dwTemp)       (*((char *)(&dwTemp) + 2))
+#define BYTE3(dwTemp)       (*((char *)(&dwTemp) + 3))
 /*
 *	使用匿名上位机发送
  *

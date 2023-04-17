@@ -5,8 +5,11 @@
  *      Author: fsr
  */
 #include "FreeRTOS.h"
+#include "task.h"
+#include "cmsis_os.h"
 #include "global_var.h"
 #include "app_log.h"
+#include "app_mpu6050.h"
 #include "bsp_usart.h"
 #include "bsp_mpu6050.h"
 

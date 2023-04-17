@@ -5,10 +5,10 @@
  *      Author: Bulanov Konstantin
  */
 
-#ifndef INC_GY521_H_
-#define INC_GY521_H_
+#ifndef INC_BSP_MPU6050_H_
+#define INC_BSP_MPU6050_H_
 
-#endif /* INC_GY521_H_ */
+#endif /* INC_BSP_MPU6050_H_ */
 
 #include <stdint.h>
 #include "i2c.h"
