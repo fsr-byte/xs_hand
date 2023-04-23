@@ -53,14 +53,17 @@ void sent_mpu6050(const MPU6050_t Send_Data)
 	BUFF[_cnt++]=BYTE1(temp_data);
 	BUFF[_cnt++]=BYTE2(temp_data);
 	BUFF[_cnt++]=BYTE3(temp_data);
-	temp_data = Send_Data.KalmanAngleX*10;
+	temp_data = Send_Data.Accel_X*1000;
 	BUFF[_cnt++]=BYTE0(temp_data);
 	BUFF[_cnt++]=BYTE1(temp_data);
-	temp_data = Send_Data.KalmanAngleY*10;
+	temp_data = Send_Data.Accel_Y*1000;
 	BUFF[_cnt++]=BYTE0(temp_data);
 	BUFF[_cnt++]=BYTE1(temp_data);
-	BUFF[_cnt++]=BYTE0(Send_Data.Gyro_Z_RAW);
-	BUFF[_cnt++]=BYTE1(Send_Data.Gyro_Z_RAW);
+	temp_data = Send_Data.Accel_Z*1000;
+	BUFF[_cnt++]=BYTE0(temp_data);
+	BUFF[_cnt++]=BYTE1(temp_data);
+//	BUFF[_cnt++]=BYTE0(Send_Data.Gyro_Z_RAW);
+//	BUFF[_cnt++]=BYTE1(Send_Data.Gyro_Z_RAW);
 
 	BUFF[3]=_cnt-4;			//数据长度
 	//SC和AC的校验直接抄最上面上面简介的即可

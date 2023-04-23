@@ -3,4 +3,5 @@ bsp_mpu6050.c:99:6:MPU6050_Read_Accel	1
 bsp_mpu6050.c:121:6:MPU6050_Read_Gyro	1
 bsp_mpu6050.c:143:6:MPU6050_Read_Temp	1
 bsp_mpu6050.c:156:6:MPU6050_Read_All	7
-bsp_mpu6050.c:210:8:Kalman_getAngle	1
+bsp_mpu6050.c:226:8:Kalman_getAngle	1
+bsp_mpu6050.c:262:6:remove_gravity	2

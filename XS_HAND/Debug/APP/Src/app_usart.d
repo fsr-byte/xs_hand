@@ -1,6 +1,7 @@
 APP/Src/app_usart.o: ../APP/Src/app_usart.c \
- C:/Users/fsr/code/my_try/XS_HAND/BSP/Inc/bsp_usart.h ../Core/Inc/usart.h \
- ../Core/Inc/main.h ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
+ C:/Users/fsr/code/xs_-hand/XS_HAND/BSP/Inc/bsp_usart.h \
+ ../Core/Inc/usart.h ../Core/Inc/main.h \
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
@@ -26,8 +27,8 @@ APP/Src/app_usart.o: ../APP/Src/app_usart.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- C:/Users/fsr/code/my_try/XS_HAND/APP/Inc/app_usart.h
-C:/Users/fsr/code/my_try/XS_HAND/BSP/Inc/bsp_usart.h:
+ C:/Users/fsr/code/xs_-hand/XS_HAND/APP/Inc/app_usart.h
+C:/Users/fsr/code/xs_-hand/XS_HAND/BSP/Inc/bsp_usart.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
@@ -56,4 +57,4 @@ C:/Users/fsr/code/my_try/XS_HAND/BSP/Inc/bsp_usart.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
-C:/Users/fsr/code/my_try/XS_HAND/APP/Inc/app_usart.h:
+C:/Users/fsr/code/xs_-hand/XS_HAND/APP/Inc/app_usart.h:

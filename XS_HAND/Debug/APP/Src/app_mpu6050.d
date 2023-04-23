@@ -1,7 +1,7 @@
 APP/Src/app_mpu6050.o: ../APP/Src/app_mpu6050.c \
- C:/Users/fsr/code/my_try/XS_HAND/APP/Inc/app_log.h \
- C:/Users/fsr/code/my_try/XS_HAND/BSP/Inc/bsp_mpu6050.h ../Core/Inc/i2c.h \
- ../Core/Inc/main.h ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
+ C:/Users/fsr/code/xs_-hand/XS_HAND/BSP/Inc/bsp_mpu6050.h \
+ ../Core/Inc/i2c.h ../Core/Inc/main.h \
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
@@ -27,16 +27,9 @@ APP/Src/app_mpu6050.o: ../APP/Src/app_mpu6050.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/include/freertos.h \
- ../Core/Inc/FreeRTOSConfig.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
- C:/Users/fsr/code/my_try/XS_HAND/APP/Inc/app_mpu6050.h
-C:/Users/fsr/code/my_try/XS_HAND/APP/Inc/app_log.h:
-C:/Users/fsr/code/my_try/XS_HAND/BSP/Inc/bsp_mpu6050.h:
+ C:/Users/fsr/code/xs_-hand/XS_HAND/BSP/Inc/bsp_usart.h \
+ ../Core/Inc/usart.h
+C:/Users/fsr/code/xs_-hand/XS_HAND/BSP/Inc/bsp_mpu6050.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
@@ -65,11 +58,5 @@ C:/Users/fsr/code/my_try/XS_HAND/BSP/Inc/bsp_mpu6050.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
-../Middlewares/Third_Party/FreeRTOS/Source/include/freertos.h:
-../Core/Inc/FreeRTOSConfig.h:
-../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
-../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h:
-../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h:
-../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h:
-../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h:
-C:/Users/fsr/code/my_try/XS_HAND/APP/Inc/app_mpu6050.h:
+C:/Users/fsr/code/xs_-hand/XS_HAND/BSP/Inc/bsp_usart.h:
+../Core/Inc/usart.h:

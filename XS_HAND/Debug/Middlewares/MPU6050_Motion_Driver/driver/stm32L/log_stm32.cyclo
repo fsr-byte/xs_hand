@@ -1,0 +1,3 @@
+log_stm32.c:61:5:_MLPrintLog	7
+log_stm32.c:116:6:eMPL_send_quat	3
+log_stm32.c:151:6:eMPL_send_data	7

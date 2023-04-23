@@ -13,6 +13,11 @@ RM := rm -rf
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
+-include Middlewares/MPU6050_Motion_Driver/porting/subdir.mk
+-include Middlewares/MPU6050_Motion_Driver/mllite/subdir.mk
+-include Middlewares/MPU6050_Motion_Driver/eMPL-hal/subdir.mk
+-include Middlewares/MPU6050_Motion_Driver/driver/stm32L/subdir.mk
+-include Middlewares/MPU6050_Motion_Driver/driver/eMPL/subdir.mk
 -include Drivers/STM32F1xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
@@ -66,8 +71,8 @@ all: main-build
 main-build: XS_HAND.elf secondary-outputs
 
 # Tool invocations
-XS_HAND.elf XS_HAND.map: $(OBJS) $(USER_OBJS) C:\Users\fsr\code\my_try\XS_HAND\STM32F103ZETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "XS_HAND.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\fsr\code\my_try\XS_HAND\STM32F103ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="XS_HAND.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+XS_HAND.elf XS_HAND.map: $(OBJS) $(USER_OBJS) C:\Users\fsr\code\xs_-hand\XS_HAND\STM32F103ZETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "XS_HAND.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\fsr\code\xs_-hand\XS_HAND\STM32F103ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="XS_HAND.map" -Wl,--gc-sections -static -L"C:\Users\fsr\code\xs_-hand\XS_HAND\Middlewares\MPU6050_Motion_Driver\mpl" --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

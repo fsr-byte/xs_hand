@@ -14,7 +14,7 @@
 #include "bsp_mpu6050.h"
 
 uint8_t i = 0;
-MPU6050_t MPU6050;
+MPU6050_t MPU6050_Data;
 
 void Sys_Init()
 {
@@ -32,7 +32,7 @@ void StartDefaultTask(void *argument) {
 	 * /
 	/* Infinite loop */
 	Sys_Init();
-	while (MPU6050_Init(&hi2c2) == 1);
+//	while (MPU6050_Init(&hi2c2) == 1);
 	for (;;) {
 		i++;
 		//printf("Ax:%d,Ay:%d,Az:%d\n",MPU6050.Accel_X_RAW,MPU6050.Accel_Y_RAW,MPU6050.Accel_Z_RAW);
@@ -61,23 +61,7 @@ void StartTask02(void *argument) {
 	/* USER CODE END StartTask02 */
 }
 
-/* USER CODE BEGIN Header_StartTask03 */
-/**
- * @brief Function implementing the myTask03 thread.
- * @param argument: Not used
- * @retval None
- */
-/* USER CODE END Header_StartTask03 */
-void StartTask03(void *argument) {
-	/* USER CODE BEGIN StartTask03 */
-	/* Infinite loop */
-	for (;;) {
-		MPU6050_Read_All(&hi2c2, &MPU6050);
-		sent_mpu6050(MPU6050);
-		osDelay(10);
-	}
-	/* USER CODE END StartTask03 */
-}
+
 
 /* USER CODE BEGIN Header_StartTask04 */
 /**

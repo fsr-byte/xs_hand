@@ -27,6 +27,11 @@ BSP/Src \
 Core/Src \
 Core/Startup \
 Drivers/STM32F1xx_HAL_Driver/Src \
+Middlewares/MPU6050_Motion_Driver/driver/eMPL \
+Middlewares/MPU6050_Motion_Driver/driver/stm32L \
+Middlewares/MPU6050_Motion_Driver/eMPL-hal \
+Middlewares/MPU6050_Motion_Driver/mllite \
+Middlewares/MPU6050_Motion_Driver/porting \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \
 Middlewares/Third_Party/FreeRTOS/Source \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 \
