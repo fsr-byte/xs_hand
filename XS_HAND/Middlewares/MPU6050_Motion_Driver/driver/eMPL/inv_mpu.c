@@ -46,7 +46,7 @@
 
 #define i2c_write Sensors_I2C_WriteRegister
 #define i2c_read Sensors_I2C_ReadRegister
-#define delay_ms HAL_Delay
+#define delay_ms osDelay
 #define get_ms get_ms_user
 #define log_i MPL_LOGI
 #define log_e MPL_LOGE

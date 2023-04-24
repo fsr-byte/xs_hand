@@ -1,4 +1,0 @@
-app_tasks.c:19:6:Sys_Init	1
-app_tasks.c:30:6:StartDefaultTask	1
-app_tasks.c:54:6:StartTask02	1
-app_tasks.c:73:6:StartTask04	1

@@ -1,2 +1,0 @@
-../APP/Src/app_usart.c:10:6:test_fun	16	static
-../APP/Src/app_usart.c:17:6:UART_DMA_RX_Data_Analyze	16	static

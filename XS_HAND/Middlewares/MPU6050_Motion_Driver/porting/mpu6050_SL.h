@@ -13,8 +13,8 @@
 #define USE_PRINTF_DEBUG 1
 #define USE_PYTHON_CLIENT 0 //官方python上位机 使用<===>1  不使用<===>0
 #define MPU_SELF_TEST 0
-#define MOTION (1)
-#define NO_MOTION (0)
+#define MOTION (0)
+#define NO_MOTION (1)
 
 #define ACCEL_ON (0x01) // 加速度传感器开关
 #define GYRO_ON (0x02) // 陀螺仪传感器开关

@@ -1,4 +1,0 @@
-C:/Users/fsr/code/xs_-hand/XS_HAND/Middlewares/MPU6050_Motion_Driver/driver/include/log.h:323:24:__print_result_location	24	static
-../Middlewares/MPU6050_Motion_Driver/mllite/mpl.c:29:13:inv_init_mpl	8	static
-../Middlewares/MPU6050_Motion_Driver/mllite/mpl.c:51:13:inv_get_version	16	static
-../Middlewares/MPU6050_Motion_Driver/mllite/mpl.c:64:13:inv_start_mpl	8	static

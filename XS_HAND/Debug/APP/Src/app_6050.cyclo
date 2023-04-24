@@ -1,5 +1,0 @@
-app_6050.c:61:6:usart_send_char	1
-app_6050.c:80:6:Data_Send_Status	2
-app_6050.c:126:6:Send_Data	2
-app_6050.c:179:13:read_from_mpl	22
-app_6050.c:368:6:StartTask03	15

@@ -36,18 +36,20 @@ extern MPU6050_t MPU6050_Data;
 extern void get_ms_user(unsigned long *count); //定义在inv_mpu.c
 #define get_tick_count get_ms_user
 /* mpu6050 DMP库  end */
-/* USER CODE BEGIN PD */
-/* Data read from MPL. */
-#define PRINT_ACCEL (0x01)
-#define PRINT_GYRO (0x02)
-#define PRINT_QUAT (0x04)
-#define PRINT_COMPASS (0x08)
-#define PRINT_EULER (0x10)
-#define PRINT_ROT_MAT (0x20)
-#define PRINT_HEADING (0x40)
-#define PRINT_PEDO (0x80)
-#define PRINT_LINEAR_ACCEL (0x100)
-#define PRINT_GRAVITY_VECTOR (0x200)
+/* USER CODE BEGIN PD /
+/ 从MPL 读取的数据。 */
+#define PRINT_ACCEL (0x01)    // 打印加速度数据
+#define PRINT_GYRO (0x02)     // 打印陀螺仪数据
+#define PRINT_QUAT (0x04)     // 打印四元数数据
+#define PRINT_COMPASS (0x08)  // 打印磁罗盘数据
+#define PRINT_EULER (0x10)    // 打印欧拉角数据
+#define PRINT_ROT_MAT (0x20)  // 打印旋转矩阵数据
+#define PRINT_HEADING (0x40)  // 打印航向角数据
+#define PRINT_PEDO (0x80)     // 打印步行数据
+#define PRINT_LINEAR_ACCEL (0x100)      // 打印线性加速度数据
+#define PRINT_GRAVITY_VECTOR (0x200)    // 打印重力向量数据
+
+/* 用户代码区结束(PD)。*/
 
 volatile uint32_t hal_timestamp = 0;
 
@@ -60,9 +62,9 @@ volatile uint32_t hal_timestamp = 0;
  */
 void usart_send_char(uint8_t c) {
 //	HAL_UART_Transmit(&huart1, &c, 1);
-	// while (USART_GetFlagStatus(DEBUG_USARTx, USART_FLAG_TXE) == RESET)
-	//     ; //循环发送,直到发送完毕
-	// USART_SendData(DEBUG_USARTx, c);
+//	 while (USART_GetFlagStatus(DEBUG_USARTx, USART_FLAG_TXE) == RESET)
+//	     ; //循环发送,直到发送完毕
+//	 USART_SendData(DEBUG_USARTx, c);
 }
 
 /* Private function prototypes -----------------------------------------------*/
@@ -307,21 +309,59 @@ static void read_from_mpl(void) {
 	if (hal.report & PRINT_LINEAR_ACCEL) {
 		if (inv_get_sensor_type_linear_acceleration(float_data, &accuracy,
 				(inv_time_t*) &timestamp)) {
-			MPU6050_Data.Gx = data[0];
-			MPU6050_Data.Gy = data[1];
-			MPU6050_Data.Gz = data[2];
-			MPL_LOGI("Linear Accel: %7.5f\t %7.5f\t %7.5f\t\r\n", float_data[0],
-					float_data[1], float_data[2]);
+			static uint32_t old_times;
+			static uint32_t new_times;
+			static double gap_times;
+			static double speed_now_x,speed_now_y,speed_now_z;
+			old_times = new_times;
+			new_times = HAL_GetTick();
+			gap_times =(new_times - old_times)/1000.0f;
+			if(ABS(float_data[0]) > 0.2f)
+			{
+				speed_now_x += gap_times* gap_times* float_data[0] /2.0f;
+				MPU6050_Data.Gx = float_data[0];
+			}
+			else
+			{
+				MPU6050_Data.Gx = 0;
+			}
+			if(ABS(float_data[1]) > 0.2f)
+			{
+				speed_now_y += gap_times* gap_times * float_data[1] / 2.0f;
+				MPU6050_Data.Gy = float_data[1];
+			}
+			else
+			{
+				MPU6050_Data.Gy = 0;
+			}
+			if(ABS(float_data[2]) > 0.2f)
+			{
+				speed_now_z += gap_times* gap_times * float_data[2]/ 2.0f;
+				MPU6050_Data.Gz = float_data[2];
+			}
+			else
+			{
+				MPU6050_Data.Gz = 0;
+			}
+			MPU6050_Data.Accel_X = speed_now_x;
+			MPU6050_Data.Accel_Y = speed_now_y;
+			MPU6050_Data.Accel_Z = speed_now_z;
+//			MPU6050_Data.Gx = float_data[0];
+//			MPU6050_Data.Gy = float_data[1];
+//			MPU6050_Data.Gz = float_data[2];
+//			MPL_LOGI("Linear Accel: %7.5f\t %7.5f\t %7.5f\t\r\n", float_data[0],
+//					float_data[1], float_data[2]);
 		}
 	}
 	if (hal.report & PRINT_GRAVITY_VECTOR) {
 		if (inv_get_sensor_type_gravity(float_data, &accuracy,
-				(inv_time_t*) &timestamp))
-			MPU6050_Data.Accel_X = data[0];
-			MPU6050_Data.Accel_Y = data[1];
-			MPU6050_Data.Accel_Z = data[2];
-			MPL_LOGI("Gravity Vector: %7.5f\t %7.5f\t %7.5f\t\r\n",
-					float_data[0], float_data[1], float_data[2]);
+				(inv_time_t*) &timestamp)){
+//			MPU6050_Data.Accel_X = float_data[0];
+//			MPU6050_Data.Accel_Y = float_data[1];
+//			MPU6050_Data.Accel_Z = float_data[2];
+//			MPL_LOGI("Gravity Vector: %7.5f\t %7.5f\t %7.5f\t\r\n",
+//					float_data[0], float_data[1], float_data[2]);
+		}
 	}
 	if (hal.report & PRINT_PEDO) {
 		unsigned long timestamp;
@@ -331,8 +371,8 @@ static void read_from_mpl(void) {
 			unsigned long step_count, walk_time;
 			dmp_get_pedometer_step_count(&step_count);
 			dmp_get_pedometer_walk_time(&walk_time);
-			MPL_LOGI("Walked %ld steps over %ld milliseconds..\n", step_count,
-					walk_time);
+//			MPL_LOGI("Walked %ld steps over %ld milliseconds..\n", step_count,
+//					walk_time);
 		}
 	}
 
@@ -379,21 +419,17 @@ void StartTask03(void *argument) {
 	MPU6050_config();
 	hal.sensors ^= ACCEL_ON;
 	hal.report ^= PRINT_ACCEL;
-//	hal.report ^= PRINT_LINEAR_ACCEL;
-//	hal.report ^= PRINT_GRAVITY_VECTOR;
+	hal.report ^= PRINT_LINEAR_ACCEL;
+	hal.report ^= PRINT_GRAVITY_VECTOR;
 	while (1) {
 		Run_Times++;
 
 		if(Run_Times % 500 == 0)
 		{
 			HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-
 		}
 		osDelay(1);
-//		if(Run_Times % 20 == 0)
-//		{
-//			MPU6050_data_ready_cb();
-//		}
+
 		if (!hal.sensors || !hal.new_gyro) {
 			continue;
 		}

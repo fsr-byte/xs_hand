@@ -1,5 +1,0 @@
-../APP/Src/app_6050.c:61:6:usart_send_char	16	static
-../APP/Src/app_6050.c:80:6:Data_Send_Status	88	static
-../APP/Src/app_6050.c:126:6:Send_Data	72	static
-../APP/Src/app_6050.c:179:13:read_from_mpl	208	static
-../APP/Src/app_6050.c:368:6:StartTask03	80	static

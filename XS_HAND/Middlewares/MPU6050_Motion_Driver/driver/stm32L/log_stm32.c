@@ -104,7 +104,7 @@ int _MLPrintLog(int priority, const char *tag, const char *fmt, ...)
         for (i = 0; i < PACKET_LENGTH; i++)
         {
             // fputc(out[i]);
-        	HAL_UART_Transmit_DMA(&PRINT_UART_HANDLE, (uint8_t *)out + i, 1);
+        	UART_DMA_Send(&PRINT_UART_HANDLE, (uint8_t *)out + i);
         }
     }
 
@@ -144,7 +144,7 @@ void eMPL_send_quat(long *quat)
     for (i = 0; i < PACKET_LENGTH; i++)
     {
         // fputc(out[i]);
-    	HAL_UART_Transmit_DMA(&PRINT_UART_HANDLE, (uint8_t*) out + i, 1);
+//    	UART_DMA_Send(&PRINT_UART_HANDLE, (uint8_t*) out + i);
     }
 }
 
@@ -220,7 +220,7 @@ void eMPL_send_data(unsigned char type, long *data)
     for (i = 0; i < PACKET_LENGTH; i++)
     {
         // fputc(out[i]);
-    	HAL_UART_Transmit_DMA(&PRINT_UART_HANDLE, (uint8_t*) out + i, 1);
+//    	HAL_UART_Transmit_DMA(&PRINT_UART_HANDLE, (uint8_t*) out + i, 1);
     }
 }
 
